@@ -8,7 +8,8 @@ class P1 {
      * For param1 = 1 and param2 = 2, the output should be add(param1, param2) = 3.
      */
     class func add(_ param1: Int, _ param2: Int) -> Int {
-        fatalError("not implemented")
+        return param1 + param2
+        //fatalError("not implemented")
     }
 
     /**
@@ -18,7 +19,11 @@ class P1 {
      * For year = 1700, the output should be centuryFromYear(year) = 17.
      */
     class func centuryFromYear(_ year: Int) -> Int {
-        fatalError("not implemented")
+        if year%100 == 0 {
+            return year/100
+        }
+        return year/100 + 1
+        //fatalError("not implemented")
     }
 
     /**
@@ -28,7 +33,14 @@ class P1 {
      * For inputString = "a", the output should be checkPalindrome(inputString) = true.
      */
     class func checkPalindrome(_ inputString: String) -> Bool {
-        fatalError("not implemented")
+        let str = Array(inputString)
+        for i in 0...str.count - 1{
+            if str[i] != str[str.count - 1 - i] {
+                return false
+            }
+        }
+        return true
+        //fatalError("not implemented")
     }
 }
 
