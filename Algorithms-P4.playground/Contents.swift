@@ -9,14 +9,45 @@ class P4 {
      * team 1, and the second element is the total weight of team 2 after the division is complete.
      */
     class func alternatingSums(_ a: [Int]) -> [Int] {
-        fatalError("not implemented")
+        var teamOne = 0
+        var teamTwo = 0
+        for i in 0...a.count - 1 {
+            if i%2 == 0{
+                teamOne += a[i]
+                } else {
+                teamTwo += a[i]
+            }
+        }
+        return [teamOne, teamTwo]
+        //fatalError("not implemented")
     }
 
     /**
      * Given a rectangular matrix of characters, add a border of asterisks(*) to it.
      */
     class func addBorder(_ picture: [String]) -> [String] {
-        fatalError("not implemented")
+        var newArr = picture
+        var col = ""
+        
+        for _ in 0...newArr[0].count - 1{
+            col += "*"
+        }
+        
+        
+        
+        newArr.insert(col, at: 0)
+        print(newArr)
+        newArr.insert(col, at: newArr.count)
+        print(newArr)
+        for i in 0...newArr.count - 1{
+            let tmp = "*" + newArr[i] + "*"
+            newArr[i] = tmp
+        }
+       
+        //print(picture.count) // cols
+        //print(picture[0].count) //rows
+        return newArr
+        //fatalError("not implemented")
     }
 
     /**
@@ -24,7 +55,31 @@ class P4 {
      * pair of elements in one of the arrays. Given two arrays a and b, check whether they are similar.
      */
     class func areSimilar(_ a: [Int], _ b: [Int]) -> Bool {
-        fatalError("not implemented")
+        var ctr = 0
+        var remOne = 0
+        var remTwo = 0
+        var similar = false
+        for i in 0...a.count - 1{
+            if a[i] != b[i] {
+                if ctr == 0 {
+                    remOne = a[i]
+                    remTwo = b[i]
+                } else if ctr == 1{
+                    if b[i] == remOne && a[i] == remTwo{
+                        similar = true
+                    }
+                } else {
+                    similar = false
+                }
+                ctr += 1
+            }
+            
+        }
+        if ctr == 0 {
+            similar = true
+        }
+        return similar
+        //fatalError("not implemented")
     }
 
     /**
@@ -33,14 +88,42 @@ class P4 {
      * increasing sequence from the input.
      */
     class func arrayChange(_ inputArray: [Int]) -> Int {
-        fatalError("not implemented")
+        var ctr = 0
+        var finArr = inputArray
+        for i in 1..<inputArray.count {
+            if finArr[i] <= finArr[i-1] {
+                ctr += finArr[i-1] - finArr[i] + 1
+                finArr[i] = finArr[i-1] + 1
+            }
+        }
+        //fatalError("not implemented")
+        return ctr
     }
 
     /**
      * Given a string, find out if its characters can be rearranged to form a palindrome.
      */
     class func palindromeRearranging(_ inputString: String) -> Bool {
-        fatalError("not implemented")
+        var chars = [Character:Int]()
+        for i in inputString {
+            if chars.keys.contains(i) {
+                chars[i]! += 1
+            } else {
+                chars[i] = 1
+            }
+        }
+        var pivot = true
+        for i in chars.values {
+            if i%2 != 0 {
+                if pivot {
+                    pivot = false
+                } else {
+                    return pivot
+                }
+            }
+        }
+        return true
+        //fatalError("not implemented")
     }
 
 }

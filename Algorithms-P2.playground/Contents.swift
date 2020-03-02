@@ -9,7 +9,14 @@ class P2 {
      * adjacentElementsProduct(inputArray) = 21. 7 and 3 produce the largest product.
      */
     class func adjacentElementsProduct(_ inputArray: [Int]) -> Int {
-        fatalError("not implemented")
+        var result = Int.min
+        for i in 1...inputArray.count - 1{
+            if inputArray[i]*inputArray[i - 1] > result {
+                result = inputArray[i]*inputArray[i - 1]
+            }
+        }
+        return result
+        //fatalError("not implemented")
     }
 
     /**
@@ -27,7 +34,14 @@ class P2 {
      *          1       2              3
      */
     class func shapeArea(_ n: Int)-> Int {
-        fatalError("not implemented")
+        if n == 1 {
+            return 1
+        }
+        if n == 2 {
+            return 5
+        }
+        return shapeArea(n - 1) + (n-1)*4
+        //fatalError("not implemented")
     }
 
     /**
@@ -40,7 +54,20 @@ class P2 {
      * Ratiorg needs statues of sizes 4, 5 and 7.
      */
     class func makeArrayConsecutive2(_ statuses: [Int])-> Int {
-        fatalError("not implemented")
+        let tempStatus = statuses
+        let sortedStatus = tempStatus.sorted()
+        var result = 0
+        if sortedStatus.count < 2 {
+            return 0
+        }
+        for i in 1...sortedStatus.count - 1 {
+            if sortedStatus[i - 1] != sortedStatus[i] - 1{
+                result += sortedStatus[i] - sortedStatus[i - 1] - 1
+            }
+            
+        }
+        return result
+        //fatalError("not implemented")
     }
 
     /**
@@ -55,7 +82,35 @@ class P2 {
      * you can remove 2 to get the strictly increasing sequence [1, 3].
      */
     class func almostIncreasingSequence(_ sequence: [Int]) -> Bool {
-        fatalError("not implemented")
+        if sequence.count == 1 {
+            return true
+        }
+        var removeCurr = sequence
+        var removePrev = sequence
+        var seq = true
+        var curr = true
+        var prev = true
+        for i in 1...sequence.count - 1{
+            if sequence[i] <= sequence[i - 1] && seq{
+                removeCurr.remove(at: i)
+                removePrev.remove(at: i - 1)
+                seq = false
+            }
+        }
+        if removeCurr.count == 1 || removePrev.count == 1 {
+            return true
+        }
+        for i in 1...removeCurr.count - 1{
+            if removeCurr[i] <= removeCurr[i - 1] {
+                curr = false
+            }
+        }
+        for i in 1...removePrev.count - 1 {
+            if removePrev[i] <= removePrev[i - 1] {
+                prev = false
+            }
+        }
+        return seq || curr || prev
     }
 
     /**
@@ -68,20 +123,33 @@ class P2 {
      * (ie: add up all the values that don't appear below a 0).
      * For
      * matrix = [[0, 1, 1, 2],
-     * [0, 5, 0, 0],
-     * [2, 0, 3, 3]]
+     *        [0, 5, 0, 0],
+     *        [2, 0, 3, 3]]
      * the output should be matrixElementsSum(matrix) = 9.
      * There are several haunted rooms, so we'll disregard them as well as any rooms beneath them.
      * Thus, the answer is 1 + 5 + 1 + 2 = 9.
-     * For matrix = [[1, 1, 1, 0],
-     * [0, 5, 0, 1],
-     * [2, 1, 3, 10]]
+     * For matrix =  [[1, 1, 1, 0],
+     *           [0, 5, 0, 1],
+     *           [2, 1, 3, 10]]
      * the output should be matrixElementsSum(matrix) = 9.
      * Note that the free room in the final column makes the full column unsuitable for bots
      * (not just the room directly beneath it). Thus, the answer is 1 + 1 + 1 + 5 + 1 = 9.
      */
     class func matrixElementsSum(_ matrix: [[Int]]) -> Int {
-        fatalError("not implemented")
+    
+        /*if matrix[0].count == 1 {
+            return matrix[0][0]
+        }*/
+        var sum = 0
+        for i in 0...matrix[0].count  - 1 {
+            for j in 0...matrix.count - 1{
+                if matrix[j][i] == 0 {
+                    break
+                }
+                sum += matrix[j][i]
+            }
+        }
+        return sum
     }
 
 }
@@ -175,7 +243,7 @@ class P2Test: XCTestCase {
                 [2]
         ]))
         XCTAssertEqual(15, P2.matrixElementsSum([
-                [1, 2, 3, 4, ]
+                [1, 2, 3, 4, 5]
         ]))
         XCTAssertEqual(17, P2.matrixElementsSum([
                 [2],
